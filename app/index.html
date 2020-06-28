@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/base.css">
+</head>
+<body>
+    <div id="app">
+        <!--搜索-->
+        <div class="header-search">
+            <input type="text" @input="search" placeholder="请输入要搜索的歌曲名称">
+        </div>
+        <!-- <div class="loading-wrap" v-show="list.length === 0">
+            <div class="first-loading"></div>
+            <div>加载中，请稍后</div>
+        </div> -->
+        <!--列表-->
+        <div class="music-list">
+            <div class="item"
+                :class="{active: v.songid === playing.songid}"
+                v-for="(v,index) in list"
+                v-if="v.show"
+                @click="toPlay(index)">
+                <div class="title">
+                    <span class="index">{{index + 1}}.</span> {{v.title}}
+                </div>
+                <small class="user">{{v.author}}</small>
+            </div>
+        </div>
+
+        <!--播放器-->
+        <div class="player-wrap">
+            <div class="player-item" v-if="playing">
+                <div class="pic" ><img :src="playing.pic" alt=""></div>
+                <audio controls ref="Audio" :src="playing.url"></audio>
+            </div>
+        </div>
+
+    </div>
+    <script src="./plugin/axios.min.js"></script>
+    <script src="./plugin/vue.min.js"></script>
+    <script>
+
+
+        new Vue({
+            el: '#app',
+            data: {
+                list: [],
+                playing: null,
+                show: false,
+                m: 'sssss'
+            },
+            created() {
+                this.getList()
+            },
+            methods: {
+                // 搜索歌曲
+                search(e) {
+                    const val = e.target.value
+                    this.list.forEach(item => {
+                        if (item.title.includes(val)) {
+                            item.show = true
+                        } else {
+                            item.show = false
+                        }
+                    })
+                },
+                // 获取歌曲列表
+                getList() {
+                    axios.get('../musicList.json').then(res => {
+                        console.log(res)
+                        
+                        this.list = res.data.map(item => {
+                            item.show = true
+                            return item
+                        })
+                        this.playing = this.list[1]
+                    })
+                },
+                // 播放
+                toPlay(index){
+                    const item = this.list[index]
+                    const audio = this.$refs.Audio
+
+                    if (this.playing.songid === item.songid && !audio.paused) {
+                        this.$nextTick(() => {
+                            this.$refs.Audio.pause()
+                        })
+                    } else {
+                        this.playing = item
+                        this.$nextTick(() => {
+                            audio.play()
+                        })
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

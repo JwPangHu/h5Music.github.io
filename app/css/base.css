@@ -1,0 +1,92 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.header-search{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 45px;
+    box-shadow: 0 0 5px #ccc;
+    background-color: #fff;
+    z-index: 10;
+}
+.header-search input {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0 0 0 15px;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 14px;
+}
+.music-list {
+    padding-left: 15px;
+    margin: 55px 0 90px 0;
+}
+.music-list .item {
+    cursor: pointer;
+    padding: 10px 15px 10px 0;
+    border-bottom: 1px solid #e4e4e4;
+    display: flex;
+    justify-content: space-between;
+    line-height: 1.4;
+}
+.music-list .item.active {
+    background-color: #000;
+    color: #fff;
+}
+
+.music-list .item .index {
+    color: #999;
+    padding-right: 5px;
+}
+.music-list .item .title {
+    flex: 0 0 65%;
+    display: flex;
+}
+.music-list .item .user {
+    color: #999;
+    font-size: 12px;
+    width: 35%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    text-align: right;
+    padding-left: 10px;
+}
+
+
+
+.player-wrap {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    box-shadow: 0 0 5px #ccc;
+    background-color: #fff;
+}
+.player-wrap .player-item {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 5px;
+}
+.player-wrap .player-item  audio {
+    flex: 1;
+}
+.player-wrap .player-item .pic {
+    position: relative;
+    width: 70px;
+    height: 70px;
+    margin-right: 5px;
+    overflow: hidden;
+    cursor: pointer;
+}
+.player-wrap .player-item .pic img {
+    width: 100%;
+     display: block;
+}
